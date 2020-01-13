@@ -31,14 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.buttonStore = new System.Windows.Forms.Button();
             this.buttonDate = new System.Windows.Forms.Button();
+            this.buttonReport = new System.Windows.Forms.Button();
+            this.buttonHist = new System.Windows.Forms.Button();
             this.dateView1 = new Konponens.DateView();
             this.listView = new Komponents.ListView();
             this.fioManager = new Komponents.FIOManager();
             this.storeData1 = new Komponents.StoreData(this.components);
             this.wordReport = new Konponens.WordReport(this.components);
-            this.buttonReport = new System.Windows.Forms.Button();
             this.histogram = new Konponens.Histogram(this.components);
-            this.buttonHist = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonStore
@@ -61,29 +61,6 @@
             this.buttonDate.UseVisualStyleBackColor = true;
             this.buttonDate.Click += new System.EventHandler(this.buttonDate_Click);
             // 
-            // dateView1
-            // 
-            this.dateView1.Location = new System.Drawing.Point(527, 12);
-            this.dateView1.Name = "dateView1";
-            this.dateView1.Size = new System.Drawing.Size(242, 86);
-            this.dateView1.TabIndex = 3;
-            // 
-            // listView
-            // 
-            this.listView.Location = new System.Drawing.Point(12, 100);
-            this.listView.Name = "listView";
-            this.listView.SelectedIndex = 0;
-            this.listView.Size = new System.Drawing.Size(551, 190);
-            this.listView.TabIndex = 2;
-            // 
-            // fioManager
-            // 
-            this.fioManager.Location = new System.Drawing.Point(27, 12);
-            this.fioManager.Name = "fioManager";
-            this.fioManager.SelectedIndexFIO = 0;
-            this.fioManager.Size = new System.Drawing.Size(511, 82);
-            this.fioManager.TabIndex = 0;
-            // 
             // buttonReport
             // 
             this.buttonReport.Location = new System.Drawing.Point(579, 189);
@@ -96,13 +73,36 @@
             // 
             // buttonHist
             // 
-            this.buttonHist.Location = new System.Drawing.Point(362, 226);
+            this.buttonHist.Location = new System.Drawing.Point(579, 253);
             this.buttonHist.Name = "buttonHist";
             this.buttonHist.Size = new System.Drawing.Size(145, 37);
             this.buttonHist.TabIndex = 6;
             this.buttonHist.Text = "Генерация гистограммы";
             this.buttonHist.UseVisualStyleBackColor = true;
             this.buttonHist.Click += new System.EventHandler(this.buttonHist_Click);
+            // 
+            // dateView1
+            // 
+            this.dateView1.Location = new System.Drawing.Point(527, 12);
+            this.dateView1.Name = "dateView1";
+            this.dateView1.Size = new System.Drawing.Size(242, 86);
+            this.dateView1.TabIndex = 3;
+            // 
+            // listView
+            // 
+            this.listView.Location = new System.Drawing.Point(12, 100);
+            this.listView.Name = "listView";
+            this.listView.SelectedIndex = 0;
+            this.listView.Size = new System.Drawing.Size(551, 160);
+            this.listView.TabIndex = 2;
+            // 
+            // fioManager
+            // 
+            this.fioManager.Location = new System.Drawing.Point(27, 12);
+            this.fioManager.Name = "fioManager";
+            this.fioManager.SelectedIndexFIO = -1;
+            this.fioManager.Size = new System.Drawing.Size(511, 86);
+            this.fioManager.TabIndex = 0;
             // 
             // Form1
             // 

@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddManagerPlugin", "AddMana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{45537D50-B6D6-4D75-B545-920755E50ADE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangePhonePlugin", "ChangePhonePlugin\ChangePhonePlugin.csproj", "{6334E903-EB55-4370-ABF9-E3B7530E11DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetProviderCardPlugin", "GetProviderCardPlugin\GetProviderCardPlugin.csproj", "{6DE06C3A-227A-4D53-BBD4-587CC0ED663B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{45537D50-B6D6-4D75-B545-920755E50ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45537D50-B6D6-4D75-B545-920755E50ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45537D50-B6D6-4D75-B545-920755E50ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6334E903-EB55-4370-ABF9-E3B7530E11DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6334E903-EB55-4370-ABF9-E3B7530E11DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6334E903-EB55-4370-ABF9-E3B7530E11DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6334E903-EB55-4370-ABF9-E3B7530E11DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE06C3A-227A-4D53-BBD4-587CC0ED663B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE06C3A-227A-4D53-BBD4-587CC0ED663B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE06C3A-227A-4D53-BBD4-587CC0ED663B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE06C3A-227A-4D53-BBD4-587CC0ED663B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

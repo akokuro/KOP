@@ -42,6 +42,8 @@
             this.MyExcelReport1 = new ControlLibrary.MyExcelReport(this.components);
             this.ReportProviderButton = new System.Windows.Forms.Button();
             this.ProviderPhoneField = new ControlLibrary.ControlTelNum();
+            this.PluginListViev = new System.Windows.Forms.ListView();
+            this.PluginStartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ProviderfioManager
@@ -135,11 +137,32 @@
             this.ProviderPhoneField.Size = new System.Drawing.Size(221, 161);
             this.ProviderPhoneField.TabIndex = 10;
             // 
+            // PluginListViev
+            // 
+            this.PluginListViev.HideSelection = false;
+            this.PluginListViev.Location = new System.Drawing.Point(406, 131);
+            this.PluginListViev.Name = "PluginListViev";
+            this.PluginListViev.Size = new System.Drawing.Size(272, 83);
+            this.PluginListViev.TabIndex = 11;
+            this.PluginListViev.UseCompatibleStateImageBehavior = false;
+            // 
+            // PluginStartButton
+            // 
+            this.PluginStartButton.Location = new System.Drawing.Point(684, 131);
+            this.PluginStartButton.Name = "PluginStartButton";
+            this.PluginStartButton.Size = new System.Drawing.Size(75, 38);
+            this.PluginStartButton.TabIndex = 12;
+            this.PluginStartButton.Text = "запустить плагин";
+            this.PluginStartButton.UseVisualStyleBackColor = true;
+            this.PluginStartButton.Click += new System.EventHandler(this.PluginStartButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(801, 450);
+            this.Controls.Add(this.PluginStartButton);
+            this.Controls.Add(this.PluginListViev);
             this.Controls.Add(this.ReportProviderButton);
             this.Controls.Add(this.ReportManagerButton);
             this.Controls.Add(this.buttonLoadBackup);
@@ -172,6 +195,8 @@
         private ControlLibrary.MyExcelReport MyExcelReport1;
         private System.Windows.Forms.Button ReportProviderButton;
         private ControlLibrary.ControlTelNum ProviderPhoneField;
+        private System.Windows.Forms.ListView PluginListViev;
+        private System.Windows.Forms.Button PluginStartButton;
     }
 }
 

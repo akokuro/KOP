@@ -26,8 +26,8 @@ namespace Komponents
         /// <summary>
         /// Разархивирует zip-архив и сохраняет его в заданный файл
         /// </summary>
-        /// <param name="pathFile"> путь к файлу, куда извлечены из архива данные</param>
-        ///  <param name="pathFold"> путь к папке, куда извлечены из архива данные</param>
+        /// <param name="pathFile"> путь к файлу, куда извлекать из архива данные</param>
+        ///  <param name="pathFold"> путь к папке, куда извлекать из архива данные</param>
         public List<T> Unzip<T>(string pathFold, string pathFile)
         {
             

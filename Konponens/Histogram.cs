@@ -14,6 +14,9 @@ namespace Konponens
 {
     public partial class Histogram : Component
     {
+        String Abs;
+        String Ord;
+
         public Histogram()
         {
             InitializeComponent();
@@ -41,6 +44,11 @@ namespace Konponens
             int max = data.Max(t => t.Value);
             return data.Select(t => new KeyValuePair<string, int>(t.Key, t.Value * 100 / max)).ToList();
         }
+        public void SetTitle(String Abs, String Ord)
+        {
+            this.Abs = Abs;
+            this.Ord = Ord;
+        }
 
         private Bitmap drawHistogram(Dictionary<String, int> data)
         {
@@ -54,12 +62,11 @@ namespace Konponens
                     gr.DrawLine(thick_pen, 190, 400, 800, 400);
                     gr.DrawLine(thick_pen, 188, 100, 192, 100);
                     gr.DrawLine(thick_pen, 190, 400, 190, 0);
-                    //    gr.drawstring(max_val.tostring(), new system.drawing.font("calibri", 8), brushes.black, new point(160, 96));
                 }
                 using (Pen thick_pen = new Pen(Color.Blue, 18))
                 {
-                    gr.DrawString("Компании", new System.Drawing.Font("Calibri", 12), Brushes.Blue, new Point(300, 460));
-                    gr.DrawString("Частота поставок", new System.Drawing.Font("Calibri", 12), Brushes.Blue, new PointF(30, 250));
+                    gr.DrawString(Abs, new System.Drawing.Font("Calibri", 12), Brushes.Blue, new Point(300, 460));
+                    gr.DrawString(Ord, new System.Drawing.Font("Calibri", 12), Brushes.Blue, new PointF(30, 250));
 
                     for (int i = 0; i < data.Count; i++)
                     {
@@ -69,7 +76,6 @@ namespace Konponens
                     }
                 }
             }
-            //bm.Save("image.jpg");
             return bm;
         }
 

@@ -7,10 +7,21 @@ namespace Konponens
 {
     public partial class DateView : UserControl
     {
+        /// <summary>
+        /// Событие выбора элемента из списка
+        /// </summary>
+        public event EventHandler _listBoxElementChangeFIO;
+
+        public DateTime? Date
+        {
+            get { return getValue(); }
+            set { }
+        }
         public DateView()
         {
             InitializeComponent();
             TextBoxWatermarkExtensionMethod.SetWatermark(textBox, "Напишите дату в формате dd-MM-yyyy");
+
         }
         /// <summary>
         /// Является ли строка, введенная пользователем, датой

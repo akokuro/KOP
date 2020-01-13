@@ -33,7 +33,7 @@ namespace MainProject
         public void UpdProvider(Provider provider)
         {
             conn = new NpgsqlConnection("Server=127.0.0.1;Port=5432;User Id=postgres;Password=2891;Database=kop;");
-            updProviderDB = new NpgsqlCommand("UPDATE providers SET name = @n, phoneNumber = @p, managerID = @m WHERE \"id\" = @id", conn);
+            updProviderDB = new NpgsqlCommand("UPDATE providers SET name = @n, phoneNumber = @p, managerID = @m WHERE id = @id", conn);
             conn.Open();
             updProviderDB.Parameters.AddWithValue("n", provider.name);
             updProviderDB.Parameters.AddWithValue("p", provider.phoneNumber);

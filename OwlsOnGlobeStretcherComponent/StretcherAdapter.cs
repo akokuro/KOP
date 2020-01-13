@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Model;
 
-namespace Plugin
+namespace OwlsOnGlobeStretcherComponent
 {
-    class PluginForm : Form
+    class StretcherAdapter : Globe
     {
+        Owl owl;
 
     }
 }

@@ -1,58 +1,40 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using MainProject;
+using Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
+using Microsoft.Office.Interop.Word;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Konponens
+using XL = Microsoft.Office.Interop.Excel;
+using System.Windows.Forms;
+
+namespace GetProviderCardPlugin
 {
-    public partial class WordReport : Component
+    public class ProviderCard : IPlugin
     {
-        /// <summary>
-        /// Количество столбцов в таблице
-        /// </summary>
-        public int columnCount;
+        Form1 Form;
+        private DbConnection db;
+        public string Operation => "Карточка поставщика";
 
-        /// <summary>
-        /// Количество строк в таблице
-        /// </summary>
-        public int rowCount;
-
-        /// <summary>
-        /// Данные таблицы
-        /// </summary>
-        private List<List<String>> data;
-
-        public WordReport()
+        public ProviderCard(DbConnection db, Form1 form)
         {
-            InitializeComponent();
+            this.Form = form;
+            this.db = db;
         }
 
-        public WordReport(IContainer container)
+        public void RunPlugin()
         {
-            container.Add(this);
+            int id = Form.selectedProvider.id;
+            Provider temp = db.getProviderList().FirstOrDefault(rec => rec.id == id);
 
-            InitializeComponent();
+            if (temp == null)
+            {
+                throw new Exception("Провайдер не найден");
+            }
+            CreateTable(new String[] {"N", "Название", "Телефон", "ID-менеджера"}, new String[] {temp.id.ToString(), temp.name, temp.phoneNumber, temp.managerId.ToString()}, "C://Users//Kurai//source//repos//KOP//MainProject//bin//Debug//temp//testPlugin.doc");
         }
-
-        /// <summary>
-        /// Устанавливает содержимое таблицы
-        /// </summary>
-        /// <param name="contentsColumns"> список столбцов со списком строк внутри</param>
-        public void SetData(List<List<String>> contentsColumns)
-        {
-            this.data = contentsColumns;
-        }
-
-        /// <summary>
-        /// Метод, генерирующий отчет
-        /// </summary>
-        /// <param name="columnNames"> первая строка таблицы - название колонок(может быть null)</param>
-        /// <param name="fileName"> имя файла, в который будет сохраняться отчет</param>
-        /// <param name="rowNames"> первая колонка таблицы - название строк(может быть null)</param>
         public void CreateTable(String[] columnNames, String[] rowNames, String fileName)
         {
             var winword = new Microsoft.Office.Interop.Word.Application();
@@ -60,9 +42,7 @@ namespace Konponens
             {
                 object missing = System.Reflection.Missing.Value;
                 //создаем документ
-                Microsoft.Office.Interop.Word.Document document =
-                winword.Documents.Add(ref missing, ref missing, ref missing, ref
-               missing);
+                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
                 //получаем ссылку на параграф
                 var paragraph = document.Paragraphs.Add(missing);
                 var range = paragraph.Range;
@@ -71,6 +51,14 @@ namespace Konponens
                 font.Size = 16;
                 font.Name = "Times New Roman";
                 font.Bold = 1;
+                range.Text = "Карточка поставщика " + rowNames[1];
+                var paragraph1 = document.Paragraphs.Add(missing);
+                var range1 = paragraph1.Range;
+                //задаем настройки шрифта
+                var font1 = range1.Font;
+                font1.Size = 16;
+                font1.Name = "Times New Roman";
+                font1.Bold = 1;
                 //задаем настройки абзаца
                 var paragraphFormat = range.ParagraphFormat;
                 paragraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
@@ -82,7 +70,7 @@ namespace Konponens
                 //создаем таблицу
                 var paragraphTable = document.Paragraphs.Add(Type.Missing);
                 var rangeTable = paragraphTable.Range;
-                var table = document.Tables.Add(rangeTable, rowCount + (columnNames != null? 1: 0), columnCount + (rowNames != null ? 1 : 0), ref missing, ref missing);
+                var table = document.Tables.Add(rangeTable, 2, columnNames.Length, ref missing, ref missing);
                 font = table.Range.Font;
                 font.Size = 14;
                 font.Name = "Times New Roman";
@@ -90,34 +78,24 @@ namespace Konponens
                 paragraphTableFormat.LineSpacingRule = WdLineSpacing.wdLineSpaceSingle;
                 paragraphTableFormat.SpaceAfter = 0;
                 paragraphTableFormat.SpaceBefore = 0;
-                int columnOffset = 0;
-                int rowOffset = 0;
                 if (columnNames != null)
                 {
-                    for (int i = 0; i < columnCount; i++)
+                    for (int i = 0; i < columnNames.Length; i++)
                     {
-                        table.Cell(1 , i + 1 + (rowNames != null ? 1 : 0)).Range.Text = columnNames[i];
+                        table.Cell(1, i + (rowNames != null ? 1 : 0)).Range.Text = columnNames[i];
                     }
-                    rowOffset = 1;
                 }
                 if (rowNames != null)
                 {
-                    for (int i = 0; i < rowCount; i++)
+                    for (int i = 0; i < rowNames.Length; i++)
                     {
-                        table.Cell(i + 1 + (columnNames != null ? 1 : 0), 1 ).Range.Text = rowNames[i];
-                    }
-                    columnOffset = 1;
-                }
-                for (int i = 0 ; i < rowCount; ++i)
-                {
-                    for (int j = 0; j < columnCount; j++)
-                    {
-                        table.Cell(i + rowOffset + 1, j + columnOffset + 1).Range.Text = data[j][i];
+                        table.Cell(2, i + (rowNames != null ? 1 : 0)).Range.Text = rowNames[i];
                     }
                 }
                 //задаем границы таблицы
                 table.Borders.InsideLineStyle = WdLineStyle.wdLineStyleInset;
                 table.Borders.OutsideLineStyle = WdLineStyle.wdLineStyleSingle;
+                //сохраняем
                 object fileFormat = WdSaveFormat.wdFormatXMLDocument;
                 document.SaveAs(fileName, ref fileFormat, ref missing,
                 ref missing, ref missing, ref missing, ref missing,
@@ -125,10 +103,13 @@ namespace Konponens
                 ref missing, ref missing, ref missing, ref missing,
                 ref missing);
                 document.Close(ref missing, ref missing, ref missing);
+                MessageBox.Show("Сохранение карточки поставщика прошло успешно!", "Отлично", MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
             }
             finally
             {

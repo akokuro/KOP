@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Model;
 
-namespace Plugin
+namespace MainProject
 {
-    class PluginForm : Form
+    public interface IPlugin
     {
-
+        String Operation { get; }
+        void RunPlugin();
     }
 }

@@ -59,7 +59,7 @@ namespace KOP
             wordReport.columnCount = contents.Count;
             wordReport.rowCount = rowCount;
             string[] rowName = { "Месяц", "Количество дней" };
-            wordReport.CreateTable(rowName, rowName, "test");
+            wordReport.CreateTable(rowName, null, "test");
         }
 
         private void buttonHist_Click(object sender, EventArgs e)

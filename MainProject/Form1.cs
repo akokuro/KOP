@@ -1,33 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Lab1ComponentKate;
-using ControlLibrary;
 using Model;
 
 namespace MainProject
 {
     public partial class Form1 : Form
     {
-        Provider selectedProvider = new Provider { id = -1 };
+        public string ProviderPhone { get { return this.ProviderPhoneField.Text; } }
+        public Provider selectedProvider = new Provider { id = -1 };
+        public Komponents.FIOManager FIOManager { get { return this.ProviderfioManager; } }
+
+        public List<Provider> providers;
+        public List<Manager> managers;
         PluginLoader Plugins = new PluginLoader();
-        List<Provider> providers;
-        List<Manager> managers;
         DbConnection db = new DbConnection();
 
         public Form1()
         {
-            Plugins.LoadPlugins("plugins");
+            Plugins.LoadPlugins("plugins", db, this);
             InitializeComponent();
+            Plugins.Plugins.ForEach((x) => PluginListViev.Items.Add(x.Operation, x.Operation, x.Operation));
             managers = db.getManagerList();
             ProviderfioManager.LoadListFIO(managers.ToList<object>());
-
+            
             providers = db.getProviderList();
             vivodTableComponent1.LoadEnumerationName(providers.ToList<object>(), new List<string> { "Номер", "Имя", "Телефон" }, new List<string> { "id", "name", "phoneNumber" });
 
@@ -37,10 +35,6 @@ namespace MainProject
                 selectedProvider = providers.Find((x) => x.id == id);
                 updateProviderInfo();
             };
-            foreach (var item in Plugins.Plugins)
-            {
-                item.Apply(selectedProvider);
-            }
         }
 
         void updateProviderInfo()
@@ -112,6 +106,19 @@ namespace MainProject
         private void ReportProviderButton_Click(object sender, EventArgs e)
         {
             MyExcelReport1.CreateExcelReport("temp", providers, new List<string> { "name", "phoneNumber" }, new List<string> { "Имя", "Номер телефона" });
+        }
+
+        private void PluginStartButton_Click(object sender, EventArgs e)
+        {
+            foreach (IPlugin p in Plugins.Plugins)
+            {
+                if (PluginListViev.SelectedItems.ContainsKey(p.Operation))
+                {
+                    p.RunPlugin();
+                }
+            }
+            providers = db.getProviderList();
+            vivodTableComponent1.LoadEnumerationName(providers.ToList<object>(), new List<string> { "Номер", "Имя", "Телефон" }, new List<string> { "id", "name", "phoneNumber" });
         }
     }
 }

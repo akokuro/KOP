@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{48EA91C2-36E9-4E87-9676-0E6BBBE09960}</ProjectGuid>
+    <ProjectGuid>{6DE06C3A-227A-4D53-BBD4-587CC0ED663B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IPlugin</RootNamespace>
-    <AssemblyName>IPlugin</AssemblyName>
+    <RootNamespace>GetProviderCardPlugin</RootNamespace>
+    <AssemblyName>GetProviderCardPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -35,6 +35,10 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -46,18 +50,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPlugin.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IPlugin\IPlugin.csproj">
+      <Project>{48ea91c2-36e9-4e87-9676-0e6bbbe09960}</Project>
+      <Name>IPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konponens\Komponents.csproj">
+      <Project>{1b4946e9-3050-455a-9efa-9a903de7a6a9}</Project>
+      <Name>Komponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MainProject\MainProject.csproj">
+      <Project>{a9e23d29-9df6-4c82-827a-6452dceaccee}</Project>
+      <Name>MainProject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{45537d50-b6d6-4d75-b545-920755e50ade}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

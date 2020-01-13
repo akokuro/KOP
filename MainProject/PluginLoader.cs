@@ -12,19 +12,17 @@ namespace MainProject
     {
         public List<IPlugin> Plugins = new List<IPlugin>();
 
-        public void LoadPlugins(string dir)
+        public void LoadPlugins(string dir, DbConnection db, Form1 form)
         {
             string folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dir);
             string[] files = Directory.GetFiles(folder, "*.dll");
             foreach (string file in files)
             {
-                IPlugin plugin = IsPlugin(file);
-                if (plugin != null)
-                    Plugins.Add(plugin);
+                IsPlugin(file, db, form);
             }
         }
 
-        private IPlugin IsPlugin(string file_url)
+        private IPlugin IsPlugin(string file_url, DbConnection db, Form1 form)
         {
 
             byte[] b = System.IO.File.ReadAllBytes(file_url);
@@ -33,8 +31,9 @@ namespace MainProject
             {
                 if (type.GetInterface("IPlugin") != null)
                 {
-                    IPlugin plugin = (IPlugin)Activator.CreateInstance(type);
-                    return plugin;
+                    IPlugin plugin = (IPlugin)Activator.CreateInstance(type, db, form);
+                    if (plugin != null)
+                        Plugins.Add(plugin);
                 }
             }
             return null;
